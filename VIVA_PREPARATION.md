@@ -16,7 +16,7 @@ The 6 most common questions professors ask for this project, with short and dire
   1. **Chi-Square ($\chi^2$):** Tests statistical independence between discrete inputs and the target classes.
   2. **Mutual Information:** Measures both linear and non-linear information gain by calculating entropy reduction.
 - We normalized both to $[0, 1]$ before averaging because raw scales differ vastly.
-- **Final Features:** `age`, `school_type`, and `gender`.
+- **Final Features (strictly 3):** `age`, `num_siblings`, and `gender`.
 - **Finding:** `age` scored 1.000 across both tests; socioeconomic features (family size, residence type, siblings) have near-zero predictive power for grade level.
 
 ---
@@ -37,8 +37,8 @@ The 6 most common questions professors ask for this project, with short and dire
 
 ### Q5. What were your evaluation metrics and how did the models perform?
 - **Answer:**
-  - **Random Forest:** Accuracy: **43.58%**, Precision: **42.16%**, Recall: **43.58%**, F1-Score: **42.44%**.
-  - **SVM (RBF):** Accuracy: **42.70%**, Precision: **42.37%**, Recall: **42.70%**, F1-Score: **42.30%**.
+  - **Random Forest (100 Trees):** Exact Accuracy: **42.62%**, Adjacent (±1 Grade) Acc: **85.82%**, F1-Score: **42.14%**.
+  - **SVM (RBF Kernel):** Exact Accuracy: **44.07%**, Adjacent (±1 Grade) Acc: **91.68%**, F1-Score: **41.75%**.
   - Both models perform closely, with Random Forest having a slight edge.
 
 ---

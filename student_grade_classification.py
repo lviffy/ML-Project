@@ -197,9 +197,10 @@ print("\n" + "=" * 60)
 print("TASK (iv): ML MODEL COMPARISON")
 print("=" * 60)
 
-# Stratified 80/20 Train-Test split
+# Stratified 80/20 Train-Test split on the Selected Features
+print(f"Training models on the {len(final_features)} selected features: {final_features}")
 X_train, X_test, y_train, y_test = train_test_split(
-    X_scaled, y, test_size=0.2, random_state=42, stratify=y
+    X_scaled[final_features], y, test_size=0.2, random_state=42, stratify=y
 )
 
 # Model 1: Random Forest (Bagging Ensemble of Decision Trees)

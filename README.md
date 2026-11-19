@@ -17,7 +17,7 @@ A straightforward machine learning project predicting student academic grade lev
 ---
 
 ### Task (ii): Feature Selection
-Two complementary statistical filter methods were evaluated and combined:
+Two complementary statistical filter methods were evaluated on the 6 candidate features:
 1. **Chi-Square Test ($\chi^2$):** Evaluates statistical independence between discrete features and the target.
 2. **Mutual Information:** Measures both linear and non-linear information gain.
 
@@ -26,13 +26,13 @@ Scores were normalized to $[0, 1]$ and averaged:
 | Feature | Combined Score | Selected? | Reason |
 |---|:---:|:---:|---|
 | **`age`** | **1.000** | **YES** | Primary predictor of grade level in school systems |
-| **`school_type`** | **0.001** | **YES** | Secondary contextual feature |
-| **`gender`** | **0.001** | **YES** | Retained for multi-feature representation |
+| **`num_siblings`** | **0.001** | **YES** | Retained for multi-feature representation (#2 rank) |
+| **`gender`** | **0.001** | **YES** | Retained for multi-feature representation (#3 rank) |
+| `school_type` | 0.000 | NO | Near-zero correlation with grade level |
 | `family_size` | 0.000 | NO | Zero correlation with grade level |
 | `residence_type`| 0.000 | NO | Zero correlation with grade level |
-| `num_siblings` | 0.000 | NO | Zero correlation with grade level |
 
-- **Final Selected Features:** `age`, `school_type`, `gender`
+- **Final Selected Features (Used in Models):** `age`, `num_siblings`, `gender` (strictly 3 features)
 - **Plot:** `plots/plot2_feature_importance.png`
 
 ---
@@ -52,16 +52,16 @@ We reduced the data to 2 dimensions using both techniques to see which works bet
 ---
 
 ### Task (iv): ML Model Comparison (Random Forest vs. SVM)
-Trained on an 80/20 stratified split (9,620 training / 2,405 test samples):
+Both models were trained strictly on the **3 selected features** (`age`, `num_siblings`, `gender`) using an 80/20 stratified split (9,620 train / 2,405 test samples):
 
 | Metric | Random Forest (100 Trees) | Support Vector Machine (RBF Kernel) |
 |---|:---:|:---:|
-| **Exact Accuracy** | **43.58%** | **42.70%** |
-| **Adjacent (±1 Grade) Accuracy** | **86.90%** | **93.60%** |
-| **Top-2 Accuracy** | **77.09%** | N/A |
-| **Precision (Weighted)** | **42.16%** | **42.37%** |
-| **Recall (Weighted)** | **43.58%** | **42.70%** |
-| **F1-Score (Weighted)** | **42.44%** | **42.30%** |
+| **Exact Accuracy** | **42.62%** | **44.07%** |
+| **Adjacent (±1 Grade) Accuracy** | **85.82%** | **91.68%** |
+| **Top-2 Accuracy** | **74.93%** | N/A |
+| **Weighted Precision** | **43.00%** | **43.98%** |
+| **Weighted Recall** | **42.62%** | **44.07%** |
+| **Weighted F1-Score** | **42.14%** | **41.75%** |
 
 #### Why ~44% accuracy is a good result:
 1. **$3\times$ Better Than Random:** Random guessing on 7 classes is $14.28\%$.
